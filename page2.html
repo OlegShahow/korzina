@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/style.css">
+	<title>Данные заказа</title>
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<div class="wrapper__container">
+			<h1>Данные заказа</h1>
+			<form id="orderForm" action="http://example.com/submit_order" method="POST">
+				<p id="orderDisplay">Номер заказа: </p><br>
+				<p id="wareDisplay">Название товара: </p><br>
+				<p id="colorDisplay">Выбранный цвет: </p>
+
+				<!-- Скрытые поля для отправки данных -->
+				<input type="hidden" name="order" id="orderField">
+				<input type="hidden" name="ware" id="wareField">
+				<input type="hidden" name="color" id="colorField">
+
+				<!-- Кнопка отправки данных -->
+				<button type="submit">Подтвердить заказ</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		// Получаем данные из localStorage, если они есть
+		const order = localStorage.getItem("order");
+		const ware = localStorage.getItem("ware");
+		const color = localStorage.getItem("color");
+
+		// Отображаем данные на странице
+		if (order && ware && color) {
+			document.getElementById("orderDisplay").innerText = `Номер заказа: ${order}`;
+			document.getElementById("wareDisplay").innerText = `Название товара: ${ware}`;
+			document.getElementById("colorDisplay").innerText = `Выбранный цвет: ${color}`;
+
+			// Заполняем скрытые поля, чтобы они могли быть отправлены
+			document.getElementById("orderField").value = order;
+			document.getElementById("wareField").value = ware;
+			document.getElementById("colorField").value = color;
+		}
+
+		// Симуляция отправки данных (для проверки)
+		document.getElementById("orderForm").addEventListener("submit", function (event) {
+			event.preventDefault(); // Отменяем стандартную отправку формы
+
+			// Получаем значения из скрытых полей
+			const order = document.getElementById("orderField").value;
+			const ware = document.getElementById("wareField").value;
+			const color = document.getElementById("colorField").value;
+
+			// Отправляем данные через fetch (симуляция)
+			fetch("http://example.com/submit_order", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					order: order,
+					ware: ware,
+					color: color
+				})
+			})
+
+				// можно эту порверку отправки -  можно ту что ниже ( та лучше )
+
+				// .then(response => response.json())  // Преобразуем ответ в JSON
+				// .then(data => {
+				// 	console.log("Ответ от сервера:", data);  // Логируем ответ сервера
+				// 	alert("Заказ успешно отправлен!");  // Показываем сообщение об успехе
+				// })
+				// .catch(error => {
+				// 	console.error("Ошибка отправки:", error);  // Логируем ошибку
+				// 	alert("Произошла ошибка при отправке данных.");
+				// });
+
+				.then(response => {
+					if (!response.ok) {
+						throw new Error(`Ошибка HTTP: ${response.status}`);
+					}
+					return response.json();
+				})
+				.then(data => {
+					console.log("Ответ от сервера:", data);  // Логируем успешный ответ
+					alert("Заказ успешно отправлен!");
+				})
+				.catch(error => {
+					console.error("Ошибка при отправке:", error);  // Логируем ошибку
+					alert(`Произошла ошибка при отправке данных: ${error.message}`);
+				});
+
+
+		});
+	</script>
+
+</body>
+
+</html>
+
+
+
+<!-- Мы добавили форму с атрибутами action и method. Атрибут action указывает на адрес, 
+ куда данные будут отправлены. Это может быть условный адрес типа http://example.com/submit_order, 
+ куда будет направлен запрос.
+Метод POST используется для безопасной отправки данных на сервер. -->
+
+
+<!-- Скрытые поля:
+
+Добавлены скрытые поля (<input type="hidden">) для каждого из данных,
+ которые нужно отправить (номер заказа, товар, цвет). 
+ Эти поля будут заполняться значениями, полученными с первой страницы,
+  и отправляться на сервер при отправке формы. -->
+
+<!-- Отправка формы:
+
+Теперь данные, которые отображаются на странице корзины,
+ будут автоматически заполняться в скрытые поля формы.
+  Когда клиент нажимает кнопку "Подтвердить заказ",
+ данные отправляются на сервер по указанному адресу. -->
+
+
+<!-- Логика обработки данных:
+На первой странице данные (номер заказа, товар, цвет)
+ сохраняются в localStorage или передаются через postMessage.
+  Когда клиент переходит на страницу корзины, данные из localStorage 
+  или из event.data заполняют поля на странице и скрытые поля в форме.
+Когда клиент подтверждает заказ, отправляется запрос на сервер с помощью метода POST
+ (с данными из скрытых полей). -->
+
+<!-- ....................................................................... -->
+
+<!-- Примечания:
+Убедись, что на сервере настроен обработчик для принятия данных,
+ отправленных методом POST на указанный адрес (например, http://example.com/submit_order).
+Если форма не должна отправляться на внешний сервер, 
+а нужно имитировать отправку,
+ можно использовать JavaScript для отправки данных на сервер через AJAX
+  (например, с использованием fetch). -->
+
+
+<!-- Пример с AJAX (если не нужно использовать форму): -->
+
+<!-- document.getElementById("orderForm").addEventListener("submit", function(event) {
+    event.preventDefault();  // Отменяем стандартное поведение формы
+
+    const order = document.getElementById("orderField").value;
+    const ware = document.getElementById("wareField").value;
+    const color = document.getElementById("colorField").value;
+
+    fetch("http://example.com/submit_order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ order, ware, color })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Успех:", data);
+    })
+    .catch(error => {
+        console.error("Ошибка:", error);
+    });
+});
+ -->

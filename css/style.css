@@ -1,0 +1,60 @@
+body {
+  background-color: rgba(93, 25, 178, 0.898);
+}
+
+.wrapper {
+  background-color: rgba(0, 0, 0, 0.567);
+  font-size: 26px;
+  font-weight: 600;
+  padding-top: 100px;
+  height: 100vh;
+}
+.wrapper__container {
+  width: 800px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 20px;
+  row-gap: 30px;
+  border-radius: 10px;
+  background-color: rgb(246, 247, 246);
+}
+.wrapper__container h1 {
+  color: rgb(255, 0, 0);
+}
+
+.box input {
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+button {
+  padding: 10px;
+  font-size: 20px;
+  background-color: gold;
+  color: rgb(10, 10, 10);
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+select {
+  padding: 10px;
+  width: 200px;
+}
+
+option {
+  text-transform: uppercase;
+  font-weight: 600;
+}

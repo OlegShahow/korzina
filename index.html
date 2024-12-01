@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./css/style.css">
+	<title>Форма ввода данных</title>
+</head>
+
+<body>
+
+	<div class="wrapper">
+
+		<div class="wrapper__container">
+
+			<div class="box">
+				<h1>Введите данные для заказа</h1>
+			</div>
+
+
+
+			<div class="box">
+				<form id="dataForm">
+					<label for="order">Номер заказа:</label>
+					<input type="text" id="order" name="order" required><br>
+
+					<label for="ware">Название товара:</label>
+					<input type="text" id="ware" name="ware" required>
+			</div>
+
+
+
+			<div class="box">
+				<label for="color">Выберите цвет:</label><br>
+				<select id="color" name="color" required>
+					<option value="no">NO</option>
+					<option value="Белый">Белый</option>
+					<option value="Синий">Синий</option>
+					<option value="Красный">Красный</option>
+				</select>
+			</div>
+
+
+			<div class="box">
+				<button type="submit">Отправить</button>
+			</div>
+
+			</form>
+		</div>
+
+
+	</div>
+
+	<script src="./js/script.js"></script>
+
+</body>
+
+</html>

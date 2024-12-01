@@ -1,0 +1,20 @@
+
+
+
+
+
+4. Отправка данных через обычную форму (когда сервер будет готов)
+Когда сервер будет настроен, ты можешь использовать стандартное отправление формы без JavaScript. Все скрытые поля, такие как order, ware и color, будут отправлены на сервер через метод POST.
+
+В этом случае не нужно будет использовать fetch или JavaScript, и форма будет отправляться как обычный запрос на сервер:
+
+html
+Копировать код
+<form id="orderForm" action="http://example.com/submit_order" method="POST">
+    <!-- Скрытые поля -->
+    <input type="hidden" name="order" id="orderField">
+    <input type="hidden" name="ware" id="wareField">
+    <input type="hidden" name="color" id="colorField">
+    
+    <button type="submit">Подтвердить заказ</button>
+</form>

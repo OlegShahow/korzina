@@ -1,0 +1,45 @@
+
+
+
+
+3. Симуляция отправки данных
+Если сервер ещё не настроен, ты можешь использовать fetch или XMLHttpRequest, чтобы симулировать отправку данных и проверить, что они корректно собираются.
+
+Вот пример с использованием fetch для симуляции отправки данных на сервер:
+
+javascript
+Копировать код
+document.getElementById("orderForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Отменяем стандартную отправку формы
+
+    // Получаем значения из скрытых полей
+    const order = document.getElementById("orderField").value;
+    const ware = document.getElementById("wareField").value;
+    const color = document.getElementById("colorField").value;
+
+    // Отправляем запрос на сервер (симуляция)
+    fetch("http://example.com/submit_order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            order: order,
+            ware: ware,
+            color: color
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Ответ от сервера:", data); // Логируем ответ сервера
+        alert("Заказ успешно отправлен!"); // Сообщение об успешной отправке
+    })
+    .catch(error => {
+        console.error("Ошибка отправки:", error); // Логируем ошибку, если она есть
+        alert("Произошла ошибка при отправке данных.");
+    });
+});
+Объяснение:
+fetch: используется для асинхронного отправления данных на сервер. Мы отправляем данные в формате JSON.
+then и catch: обработчики для успешного или неудачного ответа от сервера. В случае ошибки будет выведено сообщение об ошибке.
+Пока сервер не настроен, ты можешь заменить URL на условный адрес, например http://example.com/submit_order.
